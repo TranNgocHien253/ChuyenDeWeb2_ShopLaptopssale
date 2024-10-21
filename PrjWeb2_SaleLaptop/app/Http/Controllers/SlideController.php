@@ -10,7 +10,11 @@ class SlideController extends Controller
     // Hiển thị slide
     public function index()
     {
-        $slides = Slide::all();
+        // $slides = Slide::all();
+
+        $order = request('order', 'desc'); // Mặc định là 'desc'
+        $slides = Slide::orderBy('created_at', $order)->paginate(5);
+
         return view('admin.slides.index', compact('slides'));
     }
 
@@ -83,5 +87,18 @@ class SlideController extends Controller
         $slide->delete();
 
         return redirect()->route('admin.slides.index')->with('success', "Slide {$slide->id} deleted successfully!");
+    }
+
+
+    //sắp xếp
+    public function sort(Request $request)
+    {
+        // Lấy phương thức sắp xếp từ request, mặc định là 'desc'
+        $order = $request->get('order', 'desc');
+
+        // Sắp xếp slide theo thời gian tạo
+        $slides = Slide::orderBy('created_at', $order)->get();
+
+        return view('admin.slides.index', compact('slides'));
     }
 }

@@ -7,11 +7,12 @@
 <div class="container mx-auto">
     <!-- Header Section -->
     <div class="flex justify-between items-center mb-6">
-        <select class="p-2 border rounded">
-            <option>Giảm dần</option>
-            <option>Tăng dần</option>
-            <!-- Add more options if needed -->
-        </select>
+        <form action="{{ route('admin.slides.index') }}" method="GET" class="flex items-center">
+            <select name="order" class="p-2 border rounded" onchange="this.form.submit()">
+                <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Giảm dần</option>
+                <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>Tăng dần</option>
+            </select>
+        </form>
         <form action="{{ route('admin.slides.create')}}" class="">
             <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">+ Thêm User</button>
         </form>
@@ -38,7 +39,7 @@
         </div>
         @foreach($slides as $slide)
         <div class="flex gap-4 items-center justify-between border rounded-2xl p-4 mt-4 hover:bg-slate-100">
-            <div class="w-1/12 text-center">{{ $slide->id }}</div>
+            <div class="w-1/12 text-center">{{ $loop->iteration }}</div>
             <div class="w-3/12">
                 <img src="{{ asset($slide->image) }}" alt="image" class="rounded-md h-24 w-auto">
             </div>
@@ -70,7 +71,8 @@
         @endforeach
         <!--pagination-->
         <nav aria-label="Page navigation example" class="flex justify-end p-4">
-            <ul class="flex items-center h-8 text-sm">
+            <!-- {{ $slides->links() }} -->
+            <!-- <ul class="flex items-center h-8 text-sm">
                 <li>
                     <a href="#" class="flex gap-1 items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500  hover:text-gray-700 dark:bg-white-800  dark:text-gray-400  dark:hover:text-black">
                         <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
@@ -100,8 +102,42 @@
                         </svg>
                     </a>
                 </li>
+            </ul> -->
+        </nav>
+        <nav aria-label="Page navigation example" class="flex justify-end p-4">
+            <ul class="flex items-center h-8 text-sm">
+                @if ($slides->onFirstPage())
+                <li>
+                    <span class="flex gap-1 items-center justify-center px-3 h-8 leading-tight text-gray-500">Pre</span>
+                </li>
+                @else
+                <li>
+                    <a href="{{ $slides->previousPageUrl() }}" class="flex gap-1 items-center justify-center px-3 h-8 leading-tight text-gray-500 hover:text-gray-700">Pre</a>
+                </li>
+                @endif
+
+                @foreach ($slides as $slide)
+                <li>
+                    @if ($slide->currentPage() == $slides->currentPage())
+                    <span class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-blue-600 bg-blue-50 rounded-full hover:text-blue-700">{{ $slide->currentPage() }}</span>
+                    @else
+                    <a href="{{ $slides->url($slide->currentPage()) }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white rounded-full hover:bg-gray-100 hover:text-gray-700">{{ $slide->currentPage() }}</a>
+                    @endif
+                </li>
+                @endforeach
+
+                @if ($slides->hasMorePages())
+                <li>
+                    <a href="{{ $slides->nextPageUrl() }}" class="flex gap-1 items-center justify-center px-3 h-8 leading-tight text-gray-500 hover:text-gray-700">Next</a>
+                </li>
+                @else
+                <li>
+                    <span class="flex gap-1 items-center justify-center px-3 h-8 leading-tight text-gray-500">Next</span>
+                </li>
+                @endif
             </ul>
         </nav>
+
     </div>
 </div>
 
