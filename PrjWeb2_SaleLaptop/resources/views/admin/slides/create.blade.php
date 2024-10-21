@@ -8,12 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Slide</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> <!-- Tailwind CSS liên kết -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
-
-
-
-
-
+    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet"> -->
 </head>
 
 <body>
