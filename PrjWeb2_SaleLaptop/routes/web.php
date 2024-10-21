@@ -15,8 +15,9 @@ use App\Http\Controllers\SlideController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('app');
 });
+
 
 
 

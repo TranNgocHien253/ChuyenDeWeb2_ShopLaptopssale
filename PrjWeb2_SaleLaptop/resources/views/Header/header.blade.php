@@ -1,9 +1,8 @@
 <header>
     <nav class="bg-white border-b border-gray-200">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <a href="#" class="flex items-center">
                 <img src="../../js/asset/logo/logoJWEB.png" class="h-8" alt="Logo" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap text-gray-900 dark:text-white">LAPTOPs</span>
             </a>
             <form class="flex items-center max-w-sm w-9/12">
                 <label for="simple-search" class="sr-only">Search</label>
@@ -49,4 +48,40 @@
             </div>
         </div>
     </nav>
+    <div id="sidebar" class="lg:block hidden bg-white w-64 h-screen fixed rounded-none border-none">
+        <!-- Items -->
+        <div class="p-4 space-y-4">
+            <!-- Inicio -->
+            <a href="#" aria-label="dashboard" class="relative px-4 py-3 flex items-center space-x-4 rounded-lg text-white bg-gradient-to-r from-sky-600 to-cyan-400">
+                <i class="fas fa-home text-white"></i>
+                <span class="-mr-1 font-medium">Inicio</span>
+            </a>
+            <a href="#" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group">
+                <i class="fas fa-gift"></i>
+                <span>Recompensas</span>
+            </a>
+            </a>
+            <a href="#" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group">
+                <i class="fas fa-store"></i>
+                <span>Sucursalses</span>
+            </a>
+
+            <a href="#" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group">
+                <i class="fas fa-wallet"></i>
+                <span>Billetera</span>
+            </a>
+            <a href="#" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transacciones</span>
+            </a>
+            <a href="#" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group">
+                <i class="fas fa-user"></i>
+                <span>Mi cuenta</span>
+            </a>
+            <a href="#" class="px-4 py-3 flex items-center space-x-4 rounded-md text-gray-500 group">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Cerrar sesión</span>
+        </a>
+        </div>
+    </div>
 </header>
