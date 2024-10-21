@@ -14,7 +14,7 @@
             </select>
         </form>
         <form action="{{ route('admin.slides.create')}}" class="">
-            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">+ Thêm User</button>
+            <button class="bg-purple-600 text-white py-2 px-4 rounded hover:bg-blue-600">+ Thêm User</button>
         </form>
     </div>
     @if(session('success'))
@@ -38,8 +38,8 @@
             </div>
         </div>
         @foreach($slides as $slide)
-        <div class="flex gap-4 items-center justify-between border rounded-2xl p-4 mt-4 hover:bg-slate-100">
-            <div class="w-1/12 text-center">{{ $loop->iteration }}</div>
+        <div class="flex gap-4 items-center justify-between border rounded-2xl p-4 mt-4 hover:bg-slate-100 relative group">
+            <div class="w-1/12 text-center">{{ $slides->currentPage() * $slides->perPage() - $slides->perPage() + $loop->iteration }}</div>
             <div class="w-3/12">
                 <img src="{{ asset($slide->image) }}" alt="image" class="rounded-md h-24 w-auto">
             </div>
@@ -47,15 +47,15 @@
                 <a href="{{ $slide->link }}" class="text-blue-500 hover:underline">{{ $slide->link }}</a>
             </div>
             <div class="w-2/12 flex justify-evenly items-center border-l-2 border-gray-300">
-                <form action="{{ route('admin.slides.edit', $slide->id) }}" method="GET" class="">
-                    <button type="submit" class=" px-2 py-1 rounded hover:bg-yellow-100 text-sm">
+                <form action="{{ route('admin.slides.edit', $slide->id) }}" method="GET">
+                    <button type="submit" class="px-2 py-1 rounded hover:bg-yellow-100 text-sm">
                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20.9888 4.28491L19.6405 2.93089C18.4045 1.6897 16.4944 1.6897 15.2584 2.93089L13.0112 5.30042L18.7416 11.055L21.1011 8.68547C21.6629 8.1213 22 7.33145 22 6.54161C22 5.75176 21.5506 4.84908 20.9888 4.28491Z" fill="#030D45" />
                             <path d="M16.2697 10.9422L11.7753 6.42877L2.89888 15.3427C2.33708 15.9069 2 16.6968 2 17.5994V21.0973C2 21.5487 2.33708 22 2.89888 22H6.49438C7.2809 22 8.06742 21.6615 8.74157 21.0973L17.618 12.1834L16.2697 10.9422Z" fill="#030D45" />
                         </svg>
                     </button>
                 </form>
-                <form action="{{ route('admin.slides.destroy', $slide->id) }}" method="POST" class="">
+                <form action="{{ route('admin.slides.destroy', $slide->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="text-white px-2 py-1 rounded hover:bg-red-100 text-sm" onclick="confirmDelete(event);">
@@ -65,76 +65,52 @@
                     </button>
                 </form>
             </div>
+            <p class="absolute bottom-full left-0 bg-purple-500 text-white text-xs p-2 rounded opacity-0 transition-opacity duration-300 group-hover:opacity-100" style="transform: translateY(-0.5rem);">
+                Ngày chỉnh sửa: {{ $slide->updated_at->format('d/m/Y H:i') }}
+            </p>
         </div>
-
-
         @endforeach
-        <!--pagination-->
-        <nav aria-label="Page navigation example" class="flex justify-end p-4">
-            <!-- {{ $slides->links() }} -->
-            <!-- <ul class="flex items-center h-8 text-sm">
-                <li>
-                    <a href="#" class="flex gap-1 items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500  hover:text-gray-700 dark:bg-white-800  dark:text-gray-400  dark:hover:text-black">
-                        <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
-                        </svg>Pre
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white rounded-full hover:bg-gray-100 hover:text-gray-700 dark:bg-white-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white-700 dark:hover:text-black">1</a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white rounded-full hover:bg-gray-100 hover:text-gray-700 dark:bg-white-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white-700 dark:hover:text-black">2</a>
-                </li>
-                <li>
-                    <a href="#" aria-current="page" class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-full hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white rounded-full hover:bg-gray-100 hover:text-gray-700 dark:bg-white-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white-700 dark:hover:text-black">4</a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white rounded-full hover:bg-gray-100 hover:text-gray-700 dark:bg-white-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white-700 dark:hover:text-black">5</a>
-                </li>
-                <li>
-                    <a href="#" class="flex gap-1 items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white hover:text-gray-700 dark:text-gray-400 dark:hover:text-black">Nex
-                        <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-                        </svg>
-                    </a>
-                </li>
-            </ul> -->
-        </nav>
+
+
         <nav aria-label="Page navigation example" class="flex justify-end p-4">
             <ul class="flex items-center h-8 text-sm">
                 @if ($slides->onFirstPage())
                 <li>
-                    <span class="flex gap-1 items-center justify-center px-3 h-8 leading-tight text-gray-500">Pre</span>
+                    <span class="flex gap-1 items-center justify-center px-3 h-8 leading-tight text-gray-500"></span>
                 </li>
                 @else
                 <li>
-                    <a href="{{ $slides->previousPageUrl() }}" class="flex gap-1 items-center justify-center px-3 h-8 leading-tight text-gray-500 hover:text-gray-700">Pre</a>
+                    <a href="{{ $slides->previousPageUrl() }}" class="flex gap-1 items-center justify-center px-3 h-8 leading-tight text-gray-500 hover:text-gray-700"><svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
+                        </svg>Pre</a>
                 </li>
                 @endif
 
-                @foreach ($slides as $slide)
-                <li>
-                    @if ($slide->currentPage() == $slides->currentPage())
-                    <span class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-blue-600 bg-blue-50 rounded-full hover:text-blue-700">{{ $slide->currentPage() }}</span>
+                @for ($i = 1; $i <= $slides->lastPage(); $i++)
+                    <li>
+                        @if ($i == $slides->currentPage())
+                        <span class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-blue-600 bg-blue-50 rounded-full hover:text-blue-700">{{ $i }}</span>
+                        @else
+                        <a href="{{ $slides->url($i) }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white rounded-full hover:bg-gray-100 hover:text-gray-700">{{ $i }}</a>
+                        @endif
+                    </li>
+                    @endfor
+
+                    @if ($slides->hasMorePages())
+                    <li>
+                        <a href="{{ $slides->nextPageUrl() }}" class="flex gap-1 items-center justify-center px-3 h-8 leading-tight text-gray-500 hover:text-gray-700">Next
+                            <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                            </svg>
+                        </a>
+                    </li>
                     @else
-                    <a href="{{ $slides->url($slide->currentPage()) }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white rounded-full hover:bg-gray-100 hover:text-gray-700">{{ $slide->currentPage() }}</a>
-                    @endif
-                </li>
-                @endforeach
+                    <li>
+                        <span class="flex gap-1 items-center justify-center px-3 h-8 leading-tight text-gray-500">
 
-                @if ($slides->hasMorePages())
-                <li>
-                    <a href="{{ $slides->nextPageUrl() }}" class="flex gap-1 items-center justify-center px-3 h-8 leading-tight text-gray-500 hover:text-gray-700">Next</a>
-                </li>
-                @else
-                <li>
-                    <span class="flex gap-1 items-center justify-center px-3 h-8 leading-tight text-gray-500">Next</span>
-                </li>
-                @endif
+                        </span>
+                    </li>
+                    @endif
             </ul>
         </nav>
 

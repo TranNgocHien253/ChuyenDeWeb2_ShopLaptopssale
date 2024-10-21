@@ -1,8 +1,8 @@
 <header>
     <nav class="bg-white border-b border-gray-200">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-            <a href="#" class="flex items-center">
-                <img src="../../js/asset/logo/logoJWEB.png" class="h-8" alt="Logo" />
+            <a href="#" class="flex items-center h-14 w-auto">
+                <img src="{{ asset('logo/logoJWEB.jpg') }}" alt="Logo" class="h-full w-auto object-contain">
             </a>
             <form class="flex items-center max-w-sm w-9/12">
                 <label for="simple-search" class="sr-only">Search</label>
