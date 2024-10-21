@@ -2,9 +2,9 @@
     <nav class="bg-white border-b border-gray-200">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
             <a href="#" class="flex items-center">
-                <img src="../../js/asset/logo/logoJWEB.png" class="h-8" alt="Logo" />
+                <img src="{{ asset('logo/logoJWEB.jpg') }}" alt="Logo" class="h-14 w-auto object-contain">
             </a>
-            <form class="flex items-center max-w-sm w-9/12">
+            <form class="flex items-center max-w-sm w-full">
                 <label for="simple-search" class="sr-only">Search</label>
                 <div class="relative w-full">
                     <input type="text" id="simple-search"
@@ -25,10 +25,16 @@
                 <button class="text-sm text-purple-700 border border-purple-600 bg-white hover:bg-purple-100 rounded-md px-4 py-2 transition duration-200">
                     Register
                 </button>
+                <button class="flex items-center justify-center rounded-full bg-transparent cursor-pointer">
+                    <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" class="rounded-full w-9 h-9 fill-black animation-fadeout">
+                        <path d="M140,128a12,12,0,1,1-12-12A12,12,0,0,1,140,128ZM128,72a12,12,0,1,0-12-12A12,12,0,0,0,128,72Zm0,112a12,12,0,1,0,12,12A12,12,0,0,0,128,184Z"></path>
+                    </svg>
+                </button>
             </div>
+
         </div>
     </nav>
-    <!-- <nav class="bg-gray-50 dark:bg-purple-700">
+    <nav class="bg-gray-50 dark:bg-purple-700">
         <div class="max-w-screen-xl px-4 py-3 mx-auto">
             <div class="flex items-center">
                 <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
@@ -47,5 +53,5 @@
                 </ul>
             </div>
         </div>
-    </nav> -->
+    </nav>
 </header>

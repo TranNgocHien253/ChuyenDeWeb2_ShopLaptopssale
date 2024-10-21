@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SlideController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,10 @@ Route::put('/slides/{id}', [SlideController::class, 'update'])->name('admin.slid
 
 // web.php
 Route::delete('/slides/{id}', [SlideController::class, 'destroy'])->name('admin.slides.destroy');
+
+Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders.index');
+Route::get('/orders/add', [OrderController::class, 'create'])->name('admin.orders.create');
+Route::post('/orders/add', [OrderController::class, 'store'])->name('admin.orders.store');
+Route::get('/orders/{id}/edit', [OrderController::class, 'edit'])->name('admin.orders.edit');
+Route::put('/orders/{id}', [OrderController::class, 'update'])->name('admin.orders.update');
+Route::delete('/orders/delete/{id}', [OrderController::class, 'destroy'])->name('admin.orders.destroy');
