@@ -12,7 +12,8 @@ class SlideController extends Controller
     {
         // $slides = Slide::all();
 
-        $order = request('order', 'desc'); // Mặc định là 'desc'
+        $order = request('order', 'desc'); //Mặc định Là 'desc'
+
         $slides = Slide::orderBy('updated_at', $order)->paginate(5)->appends(['order' => $order]);
 
         return view('admin.slides.index', compact('slides'));
@@ -90,15 +91,15 @@ class SlideController extends Controller
     }
 
 
-    //sắp xếp
-    public function sort(Request $request)
-    {
-        // Lấy phương thức sắp xếp từ request, mặc định là 'desc'
-        $order = $request->get('order', 'desc');
+    // //sắp xếp
+    // public function sort(Request $request)
+    // {
+    //     // Lấy phương thức sắp xếp từ request, mặc định là 'desc'
+    //     $order = $request->get('order', 'desc');
 
-        // Sắp xếp slide theo thời gian tạo
-        $slides = Slide::orderBy('created_at', $order)->get();
+    //     // Sắp xếp slide theo thời gian tạo
+    //     $slides = Slide::orderBy('created_at', $order)->get();
 
-        return view('admin.slides.index', compact('slides'));
-    }
+    //     return view('admin.slides.index', compact('slides'));
+    // }
 }
