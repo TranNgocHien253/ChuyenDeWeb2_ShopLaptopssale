@@ -8,6 +8,7 @@
     <!-- Header Section -->
     <div class="flex justify-between items-center mb-6">
         <form action="{{ route('admin.slides.index') }}" method="GET" class="flex items-center ">
+            <input type="hidden" name="page" value="{{ request('page', 1) }}">
             <select name="order" class="p-2 border rounded-lg" onchange="this.form.submit()">
                 <option value="desc" {{ request('order') === 'desc' ? 'selected' : '' }}>Giảm dần</option>
                 <option value="asc" {{ request('order') === 'asc' ? 'selected' : '' }}>Tăng dần</option>
