@@ -1,82 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Slide</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
-    <style>
-        .preview-image {
-            width: 100px;
-            /* Đặt kích thước cho hình ảnh */
-            height: auto;
-            border: 1px solid #ccc;
-            /* Viền cho hình ảnh */
-            border-radius: 5px;
-            /* Bo góc */
-        }
-    </style>
-</head>
+@section('title', 'Admin Slides')
 
-<body>
-    <div class="container mx-auto mt-5">
-        <h1 class="text-2xl font-bold">Edit Slide</h1>
+@section('content')
+<div class="container mx-auto mt-5 p-6 max-w-3xl">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Edit Slide</h1>
 
-        @if (session('success'))
-        <div class="bg-green-500 text-white p-2 rounded mb-4">
-            {{ session('success') }}
-        </div>
-        @endif
-
-        @if ($errors->any())
-        <div class="bg-red-500 text-white p-2 rounded mb-4">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
-
-        <form action="{{ route('admin.slides.update', $slide->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="mb-4">
-                <label for="link" class="block text-gray-700">Link</label>
-                <input type="text" name="link" id="link" class="border rounded w-full py-2 px-3" required value="{{ old('link', $slide->link) }}">
-            </div>
-
-            <div class="mb-4">
-                <label for="image" class="block text-gray-700">Current Image</label>
-                <div class="mb-2">
-                    <img src="{{ asset($slide->image) }}" alt="Current Slide Image" class="preview-image" id="current-image">
-                </div>
-                <label for="image" class="block text-gray-700">New Image (Leave blank to keep current image)</label>
-                <input type="file" name="image" id="image" class="border rounded w-full py-2 px-3" accept="image/*" onchange="previewImage(event)">
-            </div>
-
-            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Update Slide</button>
-            <a href="{{ route('admin.slides.index') }}" class="bg-gray-500 text-white py-2 px-4 rounded ml-2">Cancel</a>
-        </form>
+    @if (session('success'))
+    <div class="bg-green-500 text-white p-4 rounded-lg mb-6">
+        {{ session('success') }}
     </div>
+    @endif
 
-    <script>
-        function previewImage(event) {
-            const file = event.target.files[0]; // Lấy tệp hình ảnh được chọn
-            const reader = new FileReader(); // Tạo một đối tượng FileReader
+    @if ($errors->any())
+    <div class="bg-red-500 text-white p-4 rounded-lg mb-6">
+        <ul class="list-disc list-inside">
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 
-            reader.onload = function(e) {
-                const image = document.getElementById('current-image'); // Lấy thẻ img
-                image.src = e.target.result; // Cập nhật thuộc tính src của img với đường dẫn tạm thời
-            }
+    <form action="{{ route('admin.slides.update', $slide->id) }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md">
+        @csrf
+        @method('PUT')
 
-            if (file) {
-                reader.readAsDataURL(file); // Đọc tệp hình ảnh và chuyển đổi thành URL tạm thời
-            }
+        <div class="mb-6">
+            <label for="image" class="block text-lg font-medium text-gray-700 mb-2">Image</label>
+            <div class="mb-4">
+                <img src="{{ asset($slide->image) }}" alt="Current Slide Image" class="h-52  w-auto rounded-lg shadow" id="current-image">
+            </div>
+            <input type="file" name="image" id="image" class=" w-full py-2 px-4 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none" accept="image/*" onchange="previewImage(event)">
+        </div>
+        <div class="mb-6">
+            <label for="link" class="block text-lg font-medium text-gray-700 mb-2">Link</label>
+            <input type="text" name="link" id="link" class="border border-gray-300 rounded-lg w-full py-2 px-4 text-gray-700 focus:ring-2 focus:ring-blue-400 focus:outline-none" required value="{{ old('link', $slide->link) }}">
+        </div>
+
+        <div class="flex h-11 gap-5 justify-between items-center">
+            <button type="submit" class="bg-green-200 text-black w-1/2 border border-black h-full rounded focus:outline-none">Update Slide</button>
+            <a href="{{ route('admin.slides.index') }}" class="flex justify-center items-center bg-red-200 text-black border border-black rounded h-full w-1/2 hover:bg-red-600 transition">Cancel</a>
+        </div>
+    </form>
+</div>
+@endsection
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const image = document.getElementById('current-image');
+            image.src = e.target.result;
         }
-    </script>
-</body>
 
-</html>
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+</script>

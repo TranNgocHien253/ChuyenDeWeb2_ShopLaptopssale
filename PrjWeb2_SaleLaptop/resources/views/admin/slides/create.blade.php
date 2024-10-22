@@ -1,8 +1,13 @@
+@extends('app')
+
+@section('title', 'Admin Slides')
+
+@section('content')
 <div class="container mx-auto mt-10">
-    <h1 class="text-3xl font-bold mb-5">Add New Slide</h1>
+    <h1 class="text-3xl font-bold mb-5">Create Slide</h1>
 
     <!-- Nút quay lại -->
-    <a href="{{ route('admin.slides.index') }}" class="inline-block bg-red-500 text-white py-2 px-4 rounded mb-5 hover:bg-gray-600 transition">Quay lại</a>
+
 
     <!-- Thông báo thành công -->
     @if (session('success'))
@@ -23,22 +28,23 @@
     @endif
 
     <!-- Form tạo slide -->
-    <form action="{{ route('admin.slides.store') }}" method="POST" enctype="multipart/form-data">
+    <form class="flex flex-col gap-5" action="{{ route('admin.slides.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="mb-4">
-            <label for="link" class="block text-gray-700 font-semibold mb-2">Link</label>
-            <input type="text" name="link" id="link" class="border border-gray-300 rounded w-full py-2 px-3 focus:outline-none focus:border-blue-500" required value="{{ old('link') }}">
-        </div>
-
         <div class="mb-4">
             <label for="image" class="block text-gray-700 font-semibold mb-2">Image</label>
             <input type="file" name="image" id="image" class="border border-gray-300 rounded w-full py-2 px-3 focus:outline-none focus:border-blue-500" required>
         </div>
+        <div class="mb-4">
+            <label for="link" class="block text-gray-700 font-semibold mb-2">Link</label>
+            <input type="text" name="link" id="link" class="border border-gray-300 rounded w-full  h-48 py-2 px-3  focus:outline-none focus:border-blue-500" required value="{{ old('link') }}">
+        </div>
+
 
         <!-- Nút thêm slide -->
-        <button type="submit" class="bg-blue-500 text-white py-2 px-4 w-full rounded hover:bg-blue-600 transition">Add Slide</button>
+        <div class="flex h-11 gap-5 justify-around">
+            <button type="submit" class="bg-green-200 text-black border border-black py-2 px-4 w-1/2 rounded hover:bg-green-600 transition">ADD</button>
+            <a href="{{ route('admin.slides.index') }}" class="flex justify-center items-center bg-red-200 text-black border border-black py-2 px-4 rounded h-full w-1/2 hover:bg-red-600 transition">Cancel</a>
+            </ class="flex ">
     </form>
 </div>
-
-<!-- Nếu cần thêm thư viện JavaScript -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+@endsection

@@ -16,25 +16,25 @@ class SlideSeeder extends Seeder
         DB::table('slides')->insert([
             [
                 'link' => 'https://example.com/slide1',
-                'image' => 'images/slide1.jpg',
+                'image' => 'https://via.placeholder.com/600x400.png?text=Slide+1',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'link' => 'https://example.com/slide2',
-                'image' => 'images/slide2.jpg',
+                'image' => 'https://via.placeholder.com/600x400.png?text=Slide+2',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'link' => 'https://example.com/slide3',
-                'image' => 'images/slide3.jpg',
+                'image' => 'https://via.placeholder.com/600x400.png?text=Slide+3',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'link' => 'https://example.com/slide4',
-                'image' => 'images/slide4.jpg',
+                'image' => 'https://via.placeholder.com/600x400.png?text=Slide+4',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
