@@ -56,4 +56,5 @@ public function showCart()
     return view('cart.index', compact('selectedProducts'));
 }
 
+
 }

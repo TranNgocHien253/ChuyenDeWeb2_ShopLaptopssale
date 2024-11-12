@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Giỏ Hàng</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styless.css') }}">
 </head>
 
 <body>
@@ -26,8 +26,8 @@
             @foreach($carts as $cart) <!-- Use the $cart variable here -->
             <div class="product-card">
                 <input type="checkbox" name="selected_products[]" value="{{ $cart->id }}" class="product-checkbox"
-                    data-name="{{ $cart->product->name }}"
-                    data-price="{{ $cart->product->price }}"
+                    data-name="{{ $cart->product->name}}"
+                    data-price="{{ $cart->product->promotion_price}}"
                     data-quantity="{{ $cart->quantity }}"
                     data-image="{{ $cart->product->image }}"
                     data-id="{{ $cart->id }}"> <!-- Use the cart item's ID -->

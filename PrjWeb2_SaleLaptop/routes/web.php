@@ -41,6 +41,10 @@ Route::post('/orders/add', [OrderController::class, 'store'])->name('admin.order
 Route::get('/orders/{id}/edit', [OrderController::class, 'edit'])->name('admin.orders.edit');
 Route::put('/orders/{id}', [OrderController::class, 'update'])->name('admin.orders.update');
 Route::delete('/orders/delete/{id}', [OrderController::class, 'destroy'])->name('admin.orders.destroy');
+
+
+
+
 Route::get('/cart', [ProductController::class, 'getListCart'])->name('cart.list');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show');
 // In routes/web.php
