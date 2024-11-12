@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SlideController;
 use App\Http\Controllers\OrderController;
-
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,3 +41,11 @@ Route::post('/orders/add', [OrderController::class, 'store'])->name('admin.order
 Route::get('/orders/{id}/edit', [OrderController::class, 'edit'])->name('admin.orders.edit');
 Route::put('/orders/{id}', [OrderController::class, 'update'])->name('admin.orders.update');
 Route::delete('/orders/delete/{id}', [OrderController::class, 'destroy'])->name('admin.orders.destroy');
+Route::get('/cart', [ProductController::class, 'getListCart'])->name('cart.list');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show');
+// In routes/web.php
+Route::delete('/cart/remove/{id}', [ProductController::class, 'removeProduct'])->name('cart.remove');
+Route::delete('/cart/delete/{id}', [ProductController::class, 'removeProduct'])->name('cart.delete');
+
+Route::post('/cart/delete/{productId}', [CartController::class, 'deleteProductQuantity'])->name('cart.deleteQuantity');
+
